@@ -50,7 +50,7 @@ neudebri-frontend
 ### Installation
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/neudebri-frontend.git
+   git clone https://github.com/MalabiLesley/neudebri-frontend.git
    ```
 2. Navigate to the project directory:
    ```
