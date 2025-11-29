@@ -1,0 +1,37 @@
+{
+  "name": "neudebri-frontend",
+  "version": "1.0.0",
+  "description": "A modern digital platform for patient monitoring, doctors, nurses, and administrators.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "healthcare",
+    "monitoring",
+    "patients",
+    "doctors",
+    "nurses"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwindcss": "^2.2.19"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.7",
+    "baseline-browser-mapping": "^2.8.32",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "^12.0.7",
+    "postcss": "^8.4.5",
+    "prettier": "^2.5.1"
+  }
+}
