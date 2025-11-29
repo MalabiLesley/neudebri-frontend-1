@@ -8,12 +8,12 @@ import StatusCard from "./components/StatusCard";
 export default function Home() {
   const [status, setStatus] = useState<any>(null);
 
-  useEffect(() => {
-    fetch("https://neudebriappkenya.onrender.com/api/status")
-      .then((res) => res.json())
-      .then((data) => setStatus(data))
-      .catch(() => setStatus({ message: "Backend unreachable" }));
-  }, []);
+ useEffect(() => {
+  fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/status`)
+    .then((res) => res.json())
+    .then((data) => setStatus(data))
+    .catch(() => setStatus({ message: "Backend unreachable", environment: "Unknown" }));
+}, []);
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
