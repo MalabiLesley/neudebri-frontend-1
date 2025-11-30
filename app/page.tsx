@@ -7,7 +7,12 @@ export default function Home() {
   const [status, setStatus] = useState<any>(null);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/status`)
+    const base =
+      process.env.NEXT_PUBLIC_API_URL ||
+      "https://neudebriappkenya.onrender.com";
+    const url = base.replace(/\/+$/, ""); // remove trailing slash
+
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setStatus(data))
       .catch(() =>
