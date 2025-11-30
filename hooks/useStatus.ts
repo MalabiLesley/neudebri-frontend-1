@@ -6,32 +6,51 @@ const joinUrl = (base: string | undefined, path = "") => {
   return p ? `${b}/${p}` : b || "";
 };
 
+type Status = {
+  message?: string;
+  environment?: string;
+  [key: string]: any;
+} | null;
+
 const useStatus = () => {
-  const [status, setStatus] = useState<any>(null);
+  const [status, setStatus] = useState<Status>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const ac = new AbortController();
+
     const fetchStatus = async () => {
       try {
         const base = process.env.NEXT_PUBLIC_API_URL ?? "https://neudebriappkenya.onrender.com";
-        // call root or specific path as your backend exposes it:
-        const url = joinUrl(base, ""); // or joinUrl(base, "api/status") if your backend exposes /api/status
-        const response = await fetch(url, { method: "GET", headers: { Accept: "application/json" } });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const data = await response.json();
+        const url = joinUrl(base, ""); // call root by default
+        const res = await fetch(url, {
+          method: "GET",
+          headers: { Accept: "application/json" },
+          signal: ac.signal,
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        // guard against non-JSON responses
+        const text = await res.text();
+        const data = text ? JSON.parse(text) : null;
         setStatus(data);
-      } catch (error: any) {
-        console.error("Backend error:", error);
-        setStatus({ message: "Backend unreachable", error: String(error) });
+        setError(null);
+      } catch (err: any) {
+        if (err.name === "AbortError") return;
+        console.error("useStatus error:", err);
+        setStatus({ message: "Backend unreachable" });
+        setError(String(err));
       } finally {
         setLoading(false);
       }
     };
 
     fetchStatus();
+
+    return () => ac.abort();
   }, []);
 
-  return { status, loading };
+  return { status, loading, error };
 };
 
 export default useStatus;
