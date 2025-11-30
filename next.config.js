@@ -10,7 +10,17 @@ const nextConfig = {
     ],
   },
   env: {
-    API_URL: process.env.API_URL || 'https://neudebriappkenya.onrender.com/api',
+    API_URL: process.env.API_URL || 'https://neudebriappkenya.onrender.com/',
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/api/:path*',
+          destination: 'https://neudebriappkenya.onrender.com/:path*',
+        },
+      ],
+    };
   },
 };
 
