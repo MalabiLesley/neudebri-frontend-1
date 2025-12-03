@@ -1,48 +1,27 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Global font (you can switch later if needed) */
+/* Root theme vars */
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --primary: #1f9bff;
+}
+
+/* global body */
 body {
-  @apply bg-gray-50 text-gray-800 font-sans antialiased;
+  @apply bg-[var(--bg)] text-slate-800 font-inter;
+  margin: 0;
 }
 
-/* Smooth transitions for buttons, links, cards */
-* {
-  @apply transition-colors duration-150;
-}
-
-/* Modern container */
+/* container helper */
 .container {
   @apply max-w-6xl mx-auto px-4;
 }
 
-/* Headings */
-h1 {
-  @apply text-4xl font-bold text-gray-900;
-}
-
-h2 {
-  @apply text-2xl font-semibold text-gray-800;
-}
-
-h3 {
-  @apply text-xl font-semibold text-gray-800;
-}
-
-p {
-  @apply text-gray-700 leading-relaxed;
-}
-
-/* Common card style */
-.card {
-  @apply bg-white shadow-md rounded-xl p-6 border border-gray-200;
-}
-
-/* Links */
-a {
-  @apply text-blue-600 hover:text-blue-800 no-underline;
-}
-
-/* Utility for layout spacing */
-.section {
-  @apply py-12;
-}
+/* Minor utility conversions (if you had these previously) */
+.bg-white { background-color: #fff; }
+.shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.rounded-lg { border-radius: 0.5rem; }

@@ -1,36 +1,61 @@
-import React from "react";
-import Protected from "./components/Protected";
-import StatCard from "./components/StatCard";
+"use client";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+const API = "https://neudebriappkenya.onrender.com/api/dashboard";
 
 export default function DashboardPage() {
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    async function load() {
+      const [patients, cases, visits, finance, doctors, system] = await Promise.all([
+        axios.get(`${API}/patients`),
+        axios.get(`${API}/cases`),
+        axios.get(`${API}/visits`),
+        axios.get(`${API}/finance`),
+        axios.get(`${API}/doctors`),
+        axios.get(`${API}/system`),
+      ]);
+
+      setData({
+        patients: patients.data,
+        cases: cases.data,
+        visits: visits.data,
+        finance: finance.data,
+        doctors: doctors.data,
+        system: system.data,
+      });
+    }
+
+    load();
+  }, []);
+
+  if (!data) return <p className="text-center mt-20">Loading dashboard...</p>;
+
+  const card = (title: string, value: any) => (
+    <div className="bg-white p-6 rounded-xl shadow border text-center">
+      <h2 className="text-lg font-semibold text-gray-700">{title}</h2>
+      <p className="text-3xl font-bold mt-2 text-blue-600">{value}</p>
+    </div>
+  );
+
   return (
-    <Protected>
-      <div className="max-w-6xl mx-auto space-y-6">
-        <h1 className="text-2xl font-bold">Dashboard Overview</h1>
+    <div className="p-6 space-y-8">
+      <h1 className="text-3xl font-bold text-gray-800">Dashboard Overview</h1>
 
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <StatCard title="Active Patients" value="1,248" />
-          <StatCard title="Open Cases" value="72" />
-          <StatCard title="Pending Bills" value="KSH 428,500" />
-        </section>
-
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-4 rounded-lg shadow">
-            <h2 className="font-semibold mb-2">Recent Visits</h2>
-            <ul className="text-sm text-gray-700 space-y-2">
-              <li>John Kamau — 2025-11-28 — Follow-up</li>
-              <li>Mary W. — 2025-11-27 — New registration</li>
-              <li>Paul O. — 2025-11-26 — Prescription refill</li>
-            </ul>
-          </div>
-
-          <div className="bg-white p-4 rounded-lg shadow">
-            <h2 className="font-semibold mb-2">System Status</h2>
-            <p className="text-sm text-gray-700">Backend: Connected</p>
-            <p className="text-sm text-gray-700">Env: production</p>
-          </div>
-        </section>
+      <div className="grid md:grid-cols-3 gap-6">
+        {card("Total Patients", data.patients.total_patients)}
+        {card("New Patients (30 days)", data.patients.new_patients_last_30_days)}
+        {card("Open Cases", data.cases.open_cases)}
+        {card("Closed Cases", data.cases.closed_cases)}
+        {card("Total Visits", data.visits.total_visits)}
+        {card("Doctors", data.doctors.total_doctors)}
+        {card("Total Invoices", data.finance.total_invoices)}
+        {card("Revenue", `KSh ${data.finance.total_revenue}`)}
+        {card("System Uptime (hrs)", data.system.uptime_hours)}
       </div>
-    </Protected>
+    </div>
   );
 }
