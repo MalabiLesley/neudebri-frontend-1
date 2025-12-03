@@ -1,6 +1,8 @@
 import "./globals.css";
+import type { Metadata } from "next";
+import { AuthProvider } from "./components/AuthProvider"; // make sure this path is correct
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Nuedebri Health App Kenya",
   description: "Patient monitoring platform",
 };
@@ -9,8 +11,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="min-h-screen">
-        <div className="min-h-screen flex">
-          <div className="flex-1 flex flex-col">
+        {/* Wrap the entire app in AuthProvider */}
+        <AuthProvider>
+          <div className="min-h-screen flex flex-col">
             <main className="flex-1 container py-6">
               {children}
             </main>
@@ -24,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </footer>
           </div>
-        </div>
+        </AuthProvider>
       </body>
     </html>
   );

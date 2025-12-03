@@ -1,13 +1,20 @@
-import { apiPost, apiGet } from "./api";
+import api from "./api";
 
+// Login function
 export async function login(email: string, password: string) {
-  return await apiPost("/api/auth/login", { email, password });
+  return await api.post("/api/auth/login", { email, password });
 }
 
-export async function register(data: any) {
-  return await apiPost("/api/auth/register", data);
-}
-
+// Get profile function
 export async function getProfile(token: string) {
-  return await apiGet("/api/auth/me", token);
+  return await api.get("/api/auth/me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+// Example: logout (optional)
+export async function logout() {
+  return await api.post("/api/auth/logout");
 }
