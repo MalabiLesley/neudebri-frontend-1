@@ -1,25 +1,17 @@
-import React from "react";
-import Sidebar from "./components/Sidebar";
-import Topbar from "./components/Topbar";
-import "./../../globals.css";
+// app/dashboard/layout.tsx
+import Sidebar from "@/components/sidebar";
+import Topbar from "@/components/topbar";
 
-export const metadata = {
-  title: "Nuedebri Dashboard",
-  description: "Admin and clinical dashboards for Nuedebri",
-};
-
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({ children }: any) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-gray-50">
-        <div className="flex min-h-screen">
-          <Sidebar />
-          <div className="flex-1 flex flex-col">
-            <Topbar />
-            <main className="p-6">{children}</main>
-          </div>
-        </div>
-      </body>
-    </html>
+    <div className="flex">
+      <Sidebar />
+
+      <div className="flex-1">
+        <Topbar />
+
+        <main className="p-6">{children}</main>
+      </div>
+    </div>
   );
 }

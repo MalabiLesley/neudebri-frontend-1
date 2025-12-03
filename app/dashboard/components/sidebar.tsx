@@ -1,22 +1,30 @@
-"use client";
+// components/sidebar.tsx
 import Link from "next/link";
 
 export default function Sidebar() {
-  return (
-    <aside className="w-64 bg-white border-r min-h-screen p-4 hidden md:block">
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold">Nuedebri</h2>
-        <p className="text-sm text-gray-500">Health Admin</p>
-      </div>
+  const menu = [
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Patients", path: "/dashboard/patients" },
+    { name: "Cases", path: "/dashboard/cases" },
+    { name: "Visits", path: "/dashboard/visits" },
+    { name: "Doctors", path: "/dashboard/doctors" },
+    { name: "Nurses", path: "/dashboard/nurses" },
+    { name: "Finance", path: "/dashboard/finance" },
+  ];
 
-      <nav className="space-y-2 text-sm">
-        <Link href="/dashboard" className="block p-2 rounded hover:bg-gray-100">Overview</Link>
-        <Link href="/dashboard/admin" className="block p-2 rounded hover:bg-gray-100">Admin</Link>
-        <Link href="/dashboard/doctor" className="block p-2 rounded hover:bg-gray-100">Doctor</Link>
-        <Link href="/dashboard/nurse" className="block p-2 rounded hover:bg-gray-100">Nurse</Link>
-        <Link href="/dashboard/patient" className="block p-2 rounded hover:bg-gray-100">Patient</Link>
-        <hr className="my-3" />
-        <Link href="/" className="block p-2 rounded hover:bg-gray-100">Back to site</Link>
+  return (
+    <aside className="w-64 h-screen bg-gray-900 text-white p-4 space-y-4">
+      <h2 className="text-xl font-bold">Nuedebri Health</h2>
+      <nav className="flex flex-col space-y-2">
+        {menu.map((item) => (
+          <Link
+            key={item.path}
+            href={item.path}
+            className="px-3 py-2 rounded hover:bg-gray-700"
+          >
+            {item.name}
+          </Link>
+        ))}
       </nav>
     </aside>
   );
