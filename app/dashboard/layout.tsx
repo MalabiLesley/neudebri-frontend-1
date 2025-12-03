@@ -1,6 +1,6 @@
 // app/dashboard/layout.tsx
-import Sidebar from "@/components/sidebar";
-import Topbar from "@/components/topbar";
+import Sidebar from "./components/Sidebar";
+import Topbar from "../components/Topbar";
 
 export default function DashboardLayout({ children }: any) {
   return (

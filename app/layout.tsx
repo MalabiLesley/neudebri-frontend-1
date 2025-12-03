@@ -1,6 +1,4 @@
 import "./globals.css";
-import Topbar from "../components/Topbar";
-import Sidebar from "../components/Sidebar";
 
 export const metadata = {
   title: "Nuedebri Health App Kenya",
@@ -12,9 +10,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="min-h-screen">
         <div className="min-h-screen flex">
-          <Sidebar />
           <div className="flex-1 flex flex-col">
-            <Topbar />
             <main className="flex-1 container py-6">
               {children}
             </main>

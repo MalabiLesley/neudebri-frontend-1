@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import StatusCard from "./components/StatusCard";
+import StatusCard from "../components/StatusCard";
 
 export default function Home() {
   const [status, setStatus] = useState<any>(null);
@@ -49,31 +49,3 @@ export function AboutPage() {
     </div>
   );
 }
-
-export default function ContactPage() {
-  return (
-    <div className="py-10 px-4 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
-      <p className="text-gray-700">Email: support@nuedebri.com</p>
-    </div>
-  );
-}
-
-export default function PrivacyPage() {
-  return (
-    <div className="py-10 px-4 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
-      <p className="text-gray-700">Your privacy is important to us.</p>
-    </div>
-  );
-}
-
-export default function TermsPage() {
-  return (
-    <div className="py-10 px-4 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Terms of Service</h1>
-      <p className="text-gray-700">Please read our terms carefully.</p>
-    </div>
-  );
-}
-

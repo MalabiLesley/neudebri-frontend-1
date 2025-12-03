@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import api from "../app/utils/api";
+import api from "utils/api";
 
 type AuthContextType = {
   user: any | null;

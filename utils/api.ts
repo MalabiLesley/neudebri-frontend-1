@@ -1,3 +1,4 @@
+// utils/api.ts
 import axios from "axios";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://neudebriappkenya.onrender.com";
@@ -5,15 +6,12 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL || "https://neudebriappkenya.onr
 const api = axios.create({
   baseURL,
   timeout: 10000,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers: { "Content-Type": "application/json" },
 });
 
-// request interceptor to attach token (if logged in)
 api.interceptors.request.use((config) => {
   try {
-    const token = typeof window !== 'undefined' ? localStorage.getItem("nd_token") : null;
+    const token = typeof window !== "undefined" ? localStorage.getItem("nd_token") : null;
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -22,5 +20,14 @@ api.interceptors.request.use((config) => {
     return config;
   }
 });
+
+// ✅ add named helpers
+export async function apiPost(url: string, data: any) {
+  return api.post(url, data);
+}
+
+export async function apiGet(url: string) {
+  return api.get(url);
+}
 
 export default api;
