@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import api from "utils/api";
+import api from "../../../utils/api";
 import Table from "../../components/Table";
 import Modal from "../../components/Modal";
 
@@ -67,3 +67,4 @@ export default function PatientsPage() {
     </div>
   );
 }
+

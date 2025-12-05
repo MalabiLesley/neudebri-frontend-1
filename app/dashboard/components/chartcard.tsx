@@ -6,3 +6,4 @@ export default function ChartCard({ title }: { title: string }) {
     </div>
   );
 }
+
